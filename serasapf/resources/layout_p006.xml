@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<serasapf>
+	<field>
+	<!-- Layout de consulta P006: trata-se de uma sequencia de S/N, para cada registro -->
+	<!-- para uma melhor visualizacao e configuracao, verificar o layout de consulta do P006 -->
+		<name>P006SNSSS9999SSSSSSSN NNNSN</name>
+		<size>27</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- filler (7): filler de COMPLEMENTO do registro P006 -->
+		<name> </name>
+		<size>88</size>
+		<type>S</type>
+	</field>
+</serasapf>
+

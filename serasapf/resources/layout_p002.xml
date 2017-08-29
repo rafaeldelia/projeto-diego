@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- layout_p002.xml - Registro P002 - Outras Opcoes de Consulta Pessoa Juridica -->
+<serasapj>
+	<field>
+	<!-- Tipo de registro TIPO-REG -->
+		<name>P002</name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- codigo da 1a opcao para consultar outro produto, feature ou base (ver tabela 30 -->
+		<name>IP20</name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- chave de acesso para consultar a 1a opcao se necessario -->
+		<name>Q</name>
+		<size>21</size>
+		<type>S</type>
+	</field>
+
+	<field>
+	<!-- codigo da 2a opcao para consultar outro produto, feature ou base (ver tabela 30 -->
+		<name> </name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- chave de acesso para consultar a 2a opcao se necessario -->
+		<name> </name>
+		<size>21</size>
+		<type>S</type>
+	</field>
+
+	<field>
+	<!-- codigo da 3a opcao para consultar outro produto, feature ou base (ver tabela 30 -->
+		<name> </name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- chave de acesso para consultar a 3a opcao se necessario -->
+		<name> </name>
+		<size>21</size>
+		<type>S</type>
+	</field>
+	
+	<field>
+	<!-- codigo da 4a opcao para consultar outro produto, feature ou base (ver tabela 30 -->
+		<name> </name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- chave de acesso para consultar a 4a opcao se necessario -->
+		<name> </name>
+		<size>21</size>
+		<type>S</type>
+	</field>
+	
+	<field>
+	<!-- filler de COMPLEMENTO do registro P002 -->
+		<name> </name>
+		<size>11</size>
+		<type>S</type>
+	</field>
+</serasapj>

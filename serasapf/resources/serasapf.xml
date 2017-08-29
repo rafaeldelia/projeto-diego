@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Registros de entrada/saida para consulta serasa-PF				-->
+<!-- @Author claudio cardozo										-->
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="acesso.xsd">
+	<!-- metodo de acesso para ser carregado no acesso 				-->
+	<code name="br.com.tools.acessos.serasa.SerasaPF"/>
+
+	<!-- esse deverah ser sufixo para ser acrescentado ao nome 		-->
+	<!-- vindo da politica, entao irei buscar na hash da politica	-->
+	<!-- hash.getKey(cpf_serasa); um de/para para os elementos 		-->
+	<nome_acesso>serasapf</nome_acesso>
+
+	<!-- contem os dados necessarios para entrada no serasa PF 		-->
+	<entrada>
+		<!-- posso testar pelo valor obrigatorio dentro de cada     -->
+		<!-- acesso,  ele dever ser "CPF" 					        -->
+		<field description="CPF a ser consultado" type="String" format="">CPF</field>
+		<!-- no caso de ser "CPF", pode-se optar pelo protocolo 	-->
+		<!-- P005, entao  verifico se o dado abaixo(CMC7?) existe  	-->
+		<!-- como "true" ou "false", soh entao ele usa os dados  	-->
+		<field description="Indicação de uso da consulta P005: true/false" type="Boolean" format="">P005</field>
+		<field description="CMC7" type="String" format="">CMC7</field>
+		<field description="Valor de cheque consultado" type="Double" format="">VLR_CHEQUE</field>
+		<!-- Data de vencimento do cheque; deverah vir AAAAMMDD	 	-->
+		<field description="Data de vencimento do cheque; deverá ser AAAAMMDD" type="Date" format="yyyyMMdd">VENC_CHEQUE</field>
+		<!-- Tipo de movimento sao: 								-->
+		<!-- "I"=incluir cheque;"B"=baixar cheque;"E"=baixar cheque -->
+		<!-- que terah novo cheque incluido na sequencia; 			-->
+		<!-- "C"=consultar cheque 									-->
+		<!-- como defensive programing 								-->
+		<field description="Tipo de movimento: I/B/E/C" type="String" format="">TIPO_MOV</field>
+	</entrada>
+
+	<!-- contem todas as saidas disponiveis pelo serasa PF/PJ		-->
+	<!-- Obs.: quando counter=alguma_coisa, entao todo o bloco 		-->
+	<!-- abaixo sofrerah um looping baseado nesse counter			-->
+   	<saida id="B001" counter="B001_QTDCPFGRAFIA" >
+		<register description="Mostra grafia do CPF consultado" type="String" format="">B001_GRAFIA_</register>
+		<register description="Mostra o número do CPF como Titular,ou de Outras Grafias ou de Grafias Semelhantes" type="String" format="">B001_CPF_</register>
+		<register description="Númeroda Carteira de Identidade" type="String" format="">B001_RG_</register>
+		<register description="Data de nascimento do CPF (AAAAMMDD) informada por fontes públicas de informação" type="Date" format="yyyyMMdd">B001_DATANASC_</register>
+		<register description="Código da cidade informado por fontes públicas de informação" type="String" format="">B001_CODCIDADE_</register>
+		<register description="Letra 'S' quando se tratar de Titular e; 'branco' para outros casos" type="String" format="">B001_TITULAR_</register>
+		<register description="nesta seqüência 9" type="Integer" format="">B001_LINKN_</register>
+		<register description="SituaçãodoCPF: 2=Ativo; 6=Suspenso; 9=Cancelado; 8=Novo(Ativo);0 (zero)=CPF NÀO CONFIRMADO NO CADASTRO ATÉ ESTA DATA" type="String" format="">B001_SITUACAO_</register>
+		<register description="CONFIRMEI: Data da última alteraçãodoCPF na Base de CPFs (AAAAMMDD)" type="Date" format="yyyyMMdd">B001_DTATUAL_</register>
+		<register description="Letra 'S' significa que o Registro foi devolvido por inconsistência de dados. Ver o registro B900" type="String" format="">B001_INDICERRO_</register>
+   </saida>
+   <saida id="B002" counter="B002_NUMREGISTROS" >
+		<!-- register type="String">B002_NUMREGISTROS</register -->
+	<register description="Data da última alteraçãocadastral(AAAAMMDD)" type="Date" format="yyyyMMdd">B002_DATAEMISS_</register>
+		<register description="UF da emissão" type="String" format="">B002_UFEMISSOR_</register>
+		<register description="Data de atualização do registro (AAAAMMDD)" type="Date" format="yyyyMMdd">B002_DTATUALIZA_</register>
+		<register description="Data Nascimento (AAAAMMDD)" type="Date" format="yyyyMMdd">B002_DATANASC_</register>
+		<register description="Nome da mãe" type="String" format="">B002_NOMEMAE_</register>
+		<register description="Sexo" type="String" format="">B002_SEXO_</register>
+		<register description="Tipo do documento" type="String" format="">B002_TIPODOC_</register>
+		<register description="Número do documento" type="String" format="">B002_NUMDOC_</register>
+		<register description="Órgão emissor do documento de identidade" type="String" format="">B002_ORGAOEMISS_</register>
+   </saida>
+	<saida id="B003" counter="B003_NUMREGISTROS" >
+		<register description="Estado Civil" type="String" format="">B003_ESTADOCIVIL_</register>
+		<register description="Número de dependentes" type="Integer" format="">B003_DEPEND_</register>
+		<register description="Escolaridade" type="String" format="">B003_ESCOLAR_</register>
+		<register description="Cidade de nascimento" type="String" format="">B003_MUNNASC_</register>
+		<register description="UF de nascimento" type="String" format="">B003_UFNASC_</register>
+		<register description="CPF do cônjugue" type="String" format="">B003_CPFCONJUGUE_</register>
+		<register description="DDD de residência" type="Integer" format="">B003_DDDRES_</register>
+		<register description="Telefone de residência" type="Integer" format="">B003_FONERES_</register>
+		<register description="DDD comercial" type="Integer" format="">B003_DDDCOML_</register>
+		<register description="Telefone comercial" type="Integer" format="">B003_FONECOML_</register>
+		<register description="Ramal" type="Integer" format="">B003_RAMAL_</register>
+		<register description="Celular" type="Integer" format="">B003_CELULAR_</register>
+		<register description="Código do cliente" type="Integer" format="">B003_CODCLIENTE_</register>
+	</saida>
+	<saida id="B004" counter="B004_NUMREGISTROS" >
+		<register description="Endereço" type="String" format="">B004_ENDERECO_</register>
+		<register description="Logradouro" type="String" format="">B004_LOGRADOURO_</register>
+		<register description="Número" type="String" format="">B004_NUMERO_</register>
+		<register description="Complemento" type="String" format="">B004_COMPLEMENTO_</register>
+		<register description="bairro" type="String" format="">B004_BAIRRO_</register>
+		<register description="Cidade" type="String" format="">B004_CIDADE_</register>
+		<register description="UF" type="String" format="">B004_UF_</register>
+		<register description="CEP" type="Integer" format="">B004_CEP_</register>
+		<register description="Mora desde" type="String" format="">B004_DESDE_</register>
+	</saida>
+	<saida id="B005" counter="B005_NUMREGISTROS" >
+		<register description="Ocupação" type="String" format="">B005_OCUPACAO_</register>
+		<register description="Rendas" type="Integer" format="">B005_RENDA_</register>
+		<register description="Série da Carteira de Trabalho" type="String" format="">B005_CTSERIE_</register>
+		<register description="Número da Carteira de Trabalho" type="String" format="">B005_NUMCT_</register>
+		<register description="Se for sócio, % de participação" type="Integer" format="">B005_PARTIC_</register>
+		<!-- register description="Renda média" type="String" format="">B005_RENDAMED_</register>
+		<register description="Reservado" type="String" format="">B005_TIPOTECNOLOG_</register>
+		<register description="Reservado" type="String" format="">B005_CANALVENDA_</register>
+		<register description="Valor do aluguel" type="String" format="">B005_VLRALUGUEL_</register -->
+	</saida>
+	<saida id="B006" counter="B006_NUMREGISTROS" >
+		<register description="Razão social" type="String" format="">B006_EMPRESA_</register>
+		<register description="Desde" type="String" format="">B006_DESDE_</register> 
+		<register description="Tipo da moeda" type="String" format="">B006_TIPOMOEDA_</register> 
+		<register description="PRofissão" type="String" format="">B006_PROFISSAO_</register> 
+		<register description="cardo exercido" type="String" format="">B006_CARGO_</register> 
+	</saida>
+	<saida id="B012" counter="B012_NUMREFERENCIAS" >
+		<register description="banco" type="String" format="">B012_BANCO_</register> 
+		<register description="Agência" type="Integer" format="">B012_AGENCIA_</register>
+		<register description="Conta" type="Integer" format="">B012_CONTA_</register> 
+		<register description="DDD" type="Integer" format="">B012_DDD_</register>
+		<register description="Telefone" type="Integer" format="">B012_FONE_</register>
+		<register description="Ramal" type="Integer" format="">B012_RAMAL_</register>
+		<register description="Desde" type="String" format="">B012_DESDE_</register>
+	</saida>
+	<saida id="B013" counter="B013_NUMREFERENCIAS" >
+		<register description="Banco 1" type="String" format="">B013_BANCO1_</register>
+		<register description="Limite 1" type="Integer" format="">B013_LIMITE1_</register>
+		<register description="Banco 2" type="String" format="">B013_BANCO2_</register>
+		<register description="Limite 2" type="Integer" format="">B013_LIMITE2_</register>
+	</saida>
+	<saida id="B231" counter="B231_NUMCOMPROMISSOS" >
+		<register description="Modalidade" type="String" format="">B231_MODALIDADE_</register>
+		<register description="Mês anterior" type="String" format="">B231_MESANT_</register>
+		<register description="Quantidade de parcelas mês anterior" type="Integer" format="">B231_QTDPARCELASMESANT_</register>
+		<register description="Valor das parcelas mês anterior" type="Integer" format="">B231_VLRMESANT_</register>
+		<register description="Mês atual" type="String" format="">B231_MESATUAL_</register>
+		<register description="Quantidade de parcelas mês atual" type="Integer" format="">B231_QTDPARCELASMESATUAL_</register>
+		<register description="Valor das parcelas (mês atual)" type="Integer" format="">B231_VLRMESATUAL_</register>
+		<register description="Mês 1" type="String" format="">B231_MES1_</register>
+		<register description="Quantidade de parcelas" type="Integer" format="">B231_QTDPARCELASMES1_</register>
+		<register description="Valor das parcelas (mês 1)" type="Integer" format="">B231_VLRMES1_</register>
+		<register description="Mês 2" type="String" format="">B231_MES2_</register>
+		<register description="Quantidade de parcelas" type="Integer" format="">B231_QTDPARCELASMES2_</register>
+		<register description="Valor das parcelas (mês 2)" type="Integer" format="">B231_VLRMES2_</register>
+		<register description="Mês 3" type="String" format="">B231_MES3_</register>
+		<register description="Quantidade de parcelas" type="Integer" format="">B231_QTDPARCELASMES3_</register>
+		<register description="Valor das parcelas (mês 3" type="Integer" format="">B231_VLRMES3_</register>
+		<register description="Mês 4" type="String" format="">B231_MES4_</register>
+		<register description="Quantidade de parcelas" type="Integer" format="">B231_QTDPARCELASMES4_</register>
+		<register description="Valor das parcelas (mês 4)" type="Integer" format="">B231_VLRMES4_</register>
+	</saida>
+	<saida id="B232" counter="B232_NUMCOMPROMISSOS" >
+		<register description="Número do Contratp" type="String" format="">B232_CONTRATO_</register>
+		<register description="Tipo Modalidade" type="String" format="">B232_TPMODALIDADE_</register>
+		<register description="Data do Contrato" type="Date" format="yyyyMMdd">B232_DTCONTRATO_</register>
+		<register description="Tipo da Moeda" type="String" format="">B232_TPMOEDA_</register>
+		<register description="Valor do COntrato" type="Integer" format="">B232_VLRCONTRATO_</register>
+		<register description="Valor de Garantia" type="Integer" format="">B232_VLRGARANTIA_</register>
+		<register description="Valor da entrada" type="Integer" format="">B232_VLRENTRADA_</register>
+		<register description="Valor da Parcela" type="Integer" format="">B232_VLRPARCELA_</register>
+		<register description="Data da primeira parcela" type="Date" format="yyyyMMdd">B232_DTPRIPARCELA_</register>
+		<register description="Data da última parcela" type="Date" format="yyyyMMdd">B232_DTULTPARCELA_</register>
+		<register description="Quantidade de parcelas" type="Integer" format="">B232_QTDPARCELAS_</register>
+		<register description="Número da primeira parcela" type="Integer" format="">B232_NUMPRIPARCELA_</register>
+		<register description="Parcela de Contemplação(Consórcio)" type="Integer" format="">B232_PARCELACONT_</register>
+		<register description="Documento do avalista" type="Integer" format="">B232_DOCAVALISTA_</register>
+		<register description="Indicador de Compromisso do Collection Bureau" type="String" format="">B232_COMPCB_</register>
+	</saida>
+	<saida id="B233" counter="B233_NUMCOMPROMISSOS" >
+		<register description="Descrição do Bem" type="String" format="">B233_BEM_</register>
+		<register description="Periodicidade das parcelas" type="String" format="">B233_PERIODPARC_</register>
+		<register description="Tipo de juros" type="String" format="">B233_TIPOJURO_</register>
+		<register description="Taxa" type="Integer" format="">B233_TAXA_</register>
+		<register description="Bônus" type="Integer" format="">B233_BONUS_</register>
+	</saida>
+	<saida id="B234" counter="B234_NUMPARCELAS" >
+		<register description="Número do Contrato" type="String" format="">B234_CONTRATO_</register>
+		<register description="Número da parcela" type="Integer" format="">B234_NUMPARCELA_</register>
+		<register description="Valor da parcela" type="Integer" format="">B234_VLRPARCELA_</register>
+		<register description="Data Vencimetno da parcela" type="Date" format="yyyyMMdd">B234_DTVENCPARCELA_</register>
+		<register description="Banco" type="Integer" format="">B234_BANCO_</register>
+		<register description="Agência" type="String" format="">B234_AGENCIA_</register>
+		<register description="Número do chueque 1" type="Integer" format="">B234_NUMCHEQUE1_</register>
+		<register description="Tipo de sustação. Ex.: R=Roubo; S=Sustado; C=Canceladoe E=Extraviado" type="String" format="">B234_OCORRENCIA_</register>
+		<register description="Número da parcela" type="Integer" format="">B234_NUMPARCELAOCORR_</register>
+		<register description="Valor da parcela" type="Integer" format="">B234_VLRPARCELAOCORR_</register>
+		<register description="Data vencimento parcela 2" type="Date" format="yyyyMMdd">B234_DTVENCPARCELA2_</register>
+		<register description="Banco 2" type="Integer" format="">B234_BANCO2_</register>
+		<register description="Agência 2" type="String" format="">B234_AGENCIA2_</register>
+		<register description="Número do cheque 2" type="Integer" format="">B234_NUMCHEQUE2_</register>
+		<register description="Tipo de sustação 2" type="String" format="">B234_OCORRENCIA2_</register>
+		<register description="Indicativode cheque baixado ou transferido Seqüência 3 a 9" type="String" format="">B234_BAIXA1_</register>
+		<register description="Indicativode cheque baixado ou transferido Seqüência 10 a 16" type="String" format="">B234_BAIXA2_</register>
+	</saida>
+   <saida id="B280" counter="" >
+		<register description="Descrição do Score" type="String" format="">B280_DESCSCORE</register>
+		<register description="Pontos no Score" type="Integer" format="">B280_PONTSCORE</register>
+		<register description="Range do Score" type="String" format="">B280_RANGESCORE</register>
+		<register description="Taxa do Score" type="String" format="">B280_TAXASCORE</register>
+		<register description="Mensagem do Score" type="String" format="">B280_MSGSCORE</register>
+		<register description="Código da mensagem do Score" type="String" format="">B280_CODMSGSCORE</register>
+   </saida>
+   <saida id="B352" counter="B352_NUMPARTICIP" >
+		<register description="Razão social" type="String" format="">B352_EMPRESA_</register>
+		<register description="CNPJ" type="String" format="">B352_CNPJ_</register>
+		<register description="Apresenta o percentual de participação do CPF na empresa" type="Integer" format="">B352_PERCPARTIC_</register>
+		<register description="Estado onde está sediada a empresa" type="String" format="">B352_ESTADO_</register>
+		<register description="Descriçãoda Situaçãoda Empresa" type="String" format="">B352_SITUACAO_</register>
+		<register description="Data de Inicioda Participação- Ano/Mês (AAAAMM)" type="Date" format="yyyyMMdd">B352_DTINIPARTIC_</register>
+   </saida>
+   <saida id="B353" counter="" >
+		<register description="Quantidade total de Consultas a Crédito" type="Integer" format="">B353_QTDETOTALCRED</register>
+		<register description="Ano/mês atual(AAAAMM)" type="String" format="">B353_DATATUALCRED</register>
+		<register description="Quantidade de Consultas a Crédito do mês atual" type="Integer" format="">B353_QTDEATUALCRED</register>
+		<register description="Quantidade de Consultas a Crédito do mês 1" type="Integer" format="">B353_QTDEMES1CRED</register>
+		<register description="Quantidade de Consultas a Crédito do mês 2" type="Integer" format="">B353_QTDEMES2CRED</register>
+		<register description="Quantidade de Consultas a Crédito do mês 3" type="Integer" format="">B353_QTDEMES3CRED</register>
+		<register description="Quantidade total de Consultas a Cheques" type="Integer" format="">B353_QTDETOTALCHEQ</register>
+		<register description="Quantidade de Consultas a Cheques do mês atual" type="Integer" format="">B353_QTDEATUALCHEQ</register>
+		<register description="Quantidade de Consultas a Cheques do mês 1" type="Integer" format="">B353_QTDEMES1CHEQ</register>
+		<register description="Quantidade de Consultas a Cheques do mês 2" type="Integer" format="">B353_QTDEMES2CHEQ</register> 
+		<register description="Quantidade de Consultas a Cheques do mês 3" type="Integer" format="">B353_QTDEMES3CHEQ</register>
+		<register description="Data da última consulta da empresa" type="Date" format="yyyyMMdd">B353_POSICAO</register>
+		<register description="Data do FICAD/PF Sintético ou seja, da última atualização da empresa" type="Date" format="yyyyMMdd">B353_DATAFICAD</register>
+   </saida>
+	<saida id="B354" counter="B354_NUMCONSULTA" >
+		<register description="Data da consulta (AAAAMMDD)" type="Date" format="yyyyMMdd">B354_DTOCORR_</register>
+		<register description="Origem" type="String" format="">B354_ORIGEM_</register>
+		<register description="Modalidade" type="String" format="">B354_MODALIDADE_</register>
+		<register description="Tipo da Moeda" type="String" format="">B354_TIPOMOEDA_</register>
+		<register description="Valor da consulta" type="Integer" format="">B354_VALOR_</register>
+		<!-- esses dois atributos nao entrarao no looping -->
+		<register description="Menor data da consulta" type="Date" format="yyyyMMdd">B354_MENORDTCONSULTA</register>
+		<register description="Maior data da consulta" type="Date" format="yyyyMMdd">B354_MAIORDTCONSULTA</register>
+	</saida>
+	<saida id="B355" counter="B355_NUMOCORR" >
+		<register description="Data da ocorrência" type="Date" format="yyyyMMdd">B355_DTOCORR_</register>
+		<register description="Origem" type="String" format="">B355_ORIGEM_</register>
+		<register description="Agência" type="Integer" format="">B355_AGENCIA_</register>
+		<register description="Conta Corrente" type="Integer" format="">B355_CONTACORR_</register>
+		<register description="Número do cheque inicial" type="Integer" format="">B355_CHINICIAL_</register>
+		<register description="Número do cheque final" type="Integer" format="">B355_CHFINAL_</register>
+		<register description="Motivo da Sustação" type="String" format="">B355_MOTIVOSUSTA_</register>
+		<register description="Quantidade de ocorrências" type="Integer" format="">B355_QTDEOCORR_</register>
+	</saida>
+   <saida id="B356" counter="B356_NUMCHEQUESSUSTADOS" >
+		<register description="Agência" type="Integer" format="">B356_AGENCIA_</register>
+		<register description="banco" type="String" format="">B356_BANCO_</register>
+		<register description="Conta Corrente" type="Integer" format="">B356_CONTACORR_</register>
+		<register description="Número do cheque inicial" type="Integer" format="">B356_CHINICIAL_</register>
+		<register description="Número do cheque final" type="Integer" format="">B356_CHFINAL_</register>
+		<register description="Motivo da Sustação" type="String" format="">B356_MOTIVOSUSTA_</register>
+		<register description="Data da informação(AAAAMMDD)" type="Date" format="yyyyMMdd">B356_INFORMEDT_</register>
+		<register description="hora e minuto(HH:MM)" type="String" format="">B356_INFORMEHR_</register>
+		<register description="Idnetificação do Banco " type="String" format="">B356_FONTE_</register>
+		<register description="Mensagem" type="Integer" format="">B356_MENSAGEM_</register>
+		<register description="Número do documento do titular do cheque (CPF ou CNPJ" type="Integer" format="">B356_DOCUMENTO_</register>
+		<!-- esses dois atributos nao entrao no looping -->
+		<register description="Menor Data cheque sustado" type="Date" format="yyyyMMdd">B356_MENORDTCHQSUSTADO</register>
+		<register description="Maior data cheque sustado" type="Date" format="yyyyMMdd">B356_MAIORDTCHQSUSTADO</register>
+   </saida>
+   <saida id="B357" counter="B357_NUMPENDENCIAS" >
+		<register description="Quantidade total de pendências" type="Integer" format="">B357_QTDETOTAL_</register>
+		<register description="Descrição da pendência" type="String" format="">B357_DESCRICAO_</register>
+		<register description="Menor data da pendência" type="String" format="">B357_DATAMENOR_</register>
+		<register description="Maior data da pendência" type="String" format="">B357_DATAMAIOR_</register>
+		<register description="Tipo de moeda" type="String" format="">B357_TIPMOEDA_</register>
+		<register description="Valor da última pendência" type="Integer" format="">B357_VLR_ULTIMA_</register>
+		<register description="Origem" type="String" format="">B357_ORIGEM_</register>
+		<register description="Filial" type="String" format="">B357_FILIAL_</register>
+		<register description="Tipo da PEFIN" type="String" format="">B357_TIPOPEFIN_</register>
+   </saida>
+   <saida id="B358" counter="B358_NUMPEFIN" >
+		<register description="Data da ocorrência" type="Date" format="yyyyMMdd">B358_DTOCORR_</register>
+		<register description="Tipo PEFIN" type="String" format="">B358_TIPOPEFIN_</register>
+		<register description="Modalidade" type="String" format="">B358_MODALIDADE_</register>
+		<register description="Sigla da Modalidade" type="String" format="">B358_SIGLAMODAL_</register>
+		<register description="Tipo da moeda" type="String" format="">B358_TPMOEDA_</register>
+		<register description="valor da pendência" type="Integer" format="">B358_VALOR_</register>
+		<register description="Origem" type="String" format="">B358_ORIGEM_</register>
+		<register description="Filial" type="String" format="">B358_FILIAL_</register>
+		<register description="Quantidade de ocorrências" type="Integer" format="">B358_QUANTIDADE_</register>
+		<!-- esses dois atributos nao entrao no looping -->
+		<register description="Menor data da pendência de pagamento" type="Date" format="yyyyMMdd">B358_MENORDTPENDPAG</register>
+		<register description="maior data da pendência de pagamento" type="Date" format="yyyyMMdd">B358_MAIORDTPENDPAG</register>
+   </saida>
+   <saida id="B359" counter="" >
+		<register description="Quantidade total de cheques sem fundo" type="Integer" format="">B359_QTDETOTAL</register>
+		<register description="Descrição" type="String" format="">B359_DESCRICAO</register>
+		<register description="Menor data do cheque sem fundo" type="String" format="">B359_DATAMENOR</register>
+		<register description="Maior data do cheque sem fundo" type="String" format="">B359_DATAMAIOR</register>
+		<register description="Tipo da Moeda" type="String" format="">B359_TIPMOEDA</register>
+		<register description="Valor do último cheque" type="Integer" format="">B359_VLR_ULTIMA</register>
+		<register description="Origem" type="String" format="">B359_ORIGEM</register>
+		<register description="Filial" type="String" format="">B359_FILIAL</register>
+   </saida>
+   <saida id="B360" counter="B360_NUMCHQSEMFUNDOS" >
+		<register description="Data da ocorrência" type="Date" format="yyyyMMdd">B360_DTOCORR_</register>
+		<register description="Número do cheque" type="String" format="">B360_NUMCHEQUE_</register>
+		<register description="Alínea" type="Integer" format="">B360_ALINEA_</register>
+		<register description="Quantidade de cheques" type="Integer" format="">B360_QTDE_</register>
+		<register description="Valor" type="Integer" format="">B360_VALOR_</register>
+		<register description="Banco" type="String" format="">B360_BANCO_</register>
+		<register description="Agência" type="String" format="">B360_AGENCIA_</register>
+		<register description="Conta" type="Integer" format="">B360_CONTA_</register>
+		<!-- esses dois atributos nao entram no looping -->
+		<register description="Menor data do cheque sem fundo" type="Date" format="yyyyMMdd">B360_MENORDTSEMFUNDOS</register> 
+		<register description="Maior data do cheque sem fundo" type="Date" format="yyyyMMdd">B360_MAIORDTSEMFUNDOS</register>
+   </saida>
+   <saida id="B361" counter="" >
+		<register description="Quantidade total de protestos" type="Integer" format="">B361_QTDETOTAL</register>
+		<register description="Descrição do tipo de protesto" type="String" format="">B361_DESCRICAO</register>
+		<register description="Menor data do protesto" type="String" format="">B361_DATAMENOR</register>
+		<register description="Maior data do protesto" type="String" format="">B361_DATAMAIOR</register>
+		<register description="Tipo da moeda" type="String" format="">B361_TIPMOEDA</register>
+		<register description="Valor" type="Integer" format="">B361_VALOR</register>
+		<register description="Cidade" type="String" format="">B361_CIDADE</register>
+		<register description="UF" type="String" format="">B361_UF</register>
+   </saida>
+   <saida id="B362" counter="B362_NUMPROTESTOS" >
+		<register description="Data da ocorrência (AAAAMMDD)" type="Date" format="yyyyMMdd">B362_DTOCORR_</register>
+		<register description="Valor do protesto" type="Integer" format="">B362_VALOR_</register>
+		<register description="Cartório do protesto" type="Integer" format="">B362_CARTORIO_</register>
+		<register description="Cidade" type="String" format="">B362_CIDADE_</register>
+		<register description="UF" type="String" format="">B362_UF_</register>
+		<!-- esses dois atributos nao entrarao no looping -->
+		<register description="Menor data do protesto" type="Date" format="yyyyMMdd">B362_MENORDTPROTESTO</register> 
+		<register description="Maior data do protesto" type="Date" format="yyyyMMdd">B362_MAIORDTPROTESTO</register>
+   </saida>
+   <saida id="B363" counter="" >
+		<register description="Quantidade total de ocorrências (Ação Judicial)" type="Integer" format="">B363_QTDETOTAL</register>
+		<register description="Descrição do tipo de ocorrência (Ação Judicial)" type="String" format="">B363_DESCRICAO</register>
+		<register description="Menor data da ação" type="String" format="">B363_DATAMENOR</register>
+		<register description="Maior data da ação" type="String" format="">B363_DATAMAIOR</register>
+		<register description="Tipo da moeda" type="String" format="">B363_TIPMOEDA</register>
+		<register description="Valor da ação" type="Integer" format="">B363_VALOR</register>
+		<register description="Natureza da ação" type="String" format="">B363_NATUREZA</register>
+		<register description="UF da ação" type="String" format="">B363_UF</register>
+   </saida>
+   <saida id="B364" counter="B364_NUMACAOJUD" >
+		<register description="Data da ação judicial" type="Date" format="yyyyMMdd">B364_DTOCORR_</register>
+		<register description="Natureza da ação judicial" type="String" format="">B364_NATUREZA_</register>
+		<register description="QuandooCPF for: Principal= S; Coobrigado=N" type="String" format="">B364_PRINCIPAL_</register>
+		<register description="Valor da ação" type="Integer" format="">B364_VALOR_</register>
+		<register description="Distribuidor da ação" type="Integer" format="">B364_DISTRIBUID_</register>
+		<register description="Cidade da ação" type="String" format="">B364_CIDADE_</register>
+		<!-- esses dois atributos nao entram no looping -->
+		<register description="Menor data da ação" type="Date" format="yyyyMMdd">B364_MENORDTACAOJUD</register> 
+		<register description="Maior data da ação" type="Date" format="yyyyMMdd">B364_MAIORDTACAOJUD</register>
+   </saida>
+   <saida id="B365" counter="" >
+		<register description="Total de ocorrências de Falências decretadas do CPF" type="Integer" format="">B365_TOTALOCORR</register>
+		<register description="Descrição do tipo de ocorrência (Participação em Falências)" type="String" format="">B365_DESCRICAO</register>
+		<register description="Data 1ª ocorrência (AAAAMM)" type="String" format="">B365_DATAMENOR</register>
+		<register description="Data última ocorrência (AAAAMM)" type="String" format="">B365_DATAMAIOR</register>
+		<register description="Nome da empresa em falência" type="String" format="">B365_EMPRESA</register>
+   </saida>
+   <saida id="B366" counter="B366_NUMFALENCIAS" >
+		<register description="Data da ocorrência" type="Date" format="yyyyMMdd">B366_DTOCORR_</register>
+		<register description="Tipo de ocorrência (Falência decretada)" type="String" format="">B366_TIPOOCORR_</register>
+		<register description="CNPJ" type="String" format="">B366_CNPJ_</register>
+		<register description="Nome da Empresa" type="String" format="">B366_EMPRESA_</register>
+		<!-- esses dois atributos nao entram no looping -->
+		<register description="Menor data da falência" type="Date" format="yyyyMMdd">B366_MENORDTPARTFALENC</register> 
+		<register description="Maior data da falência" type="Date" format="yyyyMMdd">B366_MAIORDTPARTFALENC</register>
+   </saida>
+   <saida id="B367" counter="" >
+		<register description="Quantida de total de ocorrências" type="Integer" format="">B367_QTDETOTAL</register>
+		<register description="Descrição da ocorrência" type="String" format="">B367_DESCRICAO</register>
+		<register description="Data da 1ª ocorrência (AAAAMM) mais antiga" type="String" format="">B367_DATAMENOR</register>
+		<register description="Data última ocorrência (AAAAMM) mais recente" type="String" format="">B367_DATAMAIOR</register>
+		<register description="Tipo de moeda" type="String" format="">B367_TIPMOEDA</register>
+		<register description="Valor da última ocorrência" type="Integer" format="">B367_VLR_ULTIMA</register>
+		<register description="Empresa da última ocorrência" type="String" format="">B367_ORIGEM</register>
+		<register description="Código Nacional de Localidades da cidade da empresa" type="String" format="">B367_LOCAL</register>
+   </saida>
+   <saida id="B368" counter="B368_NUMDIVIDAS" >
+		<register description="Data da ocorrência (AAAAMMDD)" type="Date" format="yyyyMMdd">B368_DTOCORR_</register>
+		<register description="Tipo de modalidade - Tabela 7" type="String" format="">B368_MODALIDADE_</register>
+		<register description="Valor da dívida" type="Integer" format="">B368_VALOR_</register>
+		<register description="Nome da instituição participante do convênio" type="String" format="">B368_ORIGEM_</register>
+		<!-- esses dois atributos nao entram no looping -->
+		<register description="Menor data da dívida" type="Date" format="yyyyMMdd">B368_MENORDTDIVIDA</register> 
+		<register description="Menor data da dívida" type="Date" format="yyyyMMdd">B368_MAIORDTDIVIDA</register>
+   </saida>
+   <saida id="B369" counter="" >
+		<register description="Tipo de Registro" type="String" format="">B369_TIPODEREG</register>
+		<register description="DDD" type="Integer" format="">B369_DDDFONE</register>
+		<register description="Número do telefone" type="Integer" format="">B369_NROFONE</register>
+		<register description="Mensagem de resposta da Operadora de Telefonia para os dados consultados" type="String" format="">B369_MENSAGEM</register>
+		<register description="Origem da consulta à confirmação do telefone apresentado. Pode ser Credit Bureau, Achei-Recheque ou Concentre" type="String" format="">B369_ORIGEM</register>
+		<register description="Data em que ocorreu a consulta à Telefônica" type="Date" format="yyyyMMdd">B369_DTCONSULTA</register>
+		<register description="Endereço" type="String" format="">B369_ENDERECO</register>
+		<register description="Bairro" type="String" format="">B369_BAIRRO</register>
+		<register description="CEP" type="Integer" format="">B369_CEP</register>
+		<register description="Cidade" type="String" format="">B369_CIDADE</register>
+		<register description="UF" type="String" format="">B369_UF</register>
+		<register description="Nome do assinante da linha telefônica consultada" type="String" format="">B369_NOME</register>
+   </saida>
+   <saida id="B370" counter="" >
+		<register description="Tipo de Registro: 1 ou 2" type="String" format="">B370_TIPODEREG</register>
+		<register description="DDD" type="Integer" format="">B370_DDDFONE</register>
+		<register description="DDD do telefone cadastrado no Credit Bureau" type="Integer" format="">B370_NROFONE</register>
+		<register description="Número do telefone cadastrado no Credit Bureau" type="Date" format="yyyyMMdd">B370_DTATUALIZA</register>
+		<register description="Endereço cadastrado no Credit Bureau" type="String" format="">B370_ENDERECO</register>
+		<register description="Bairro do endereço cadastrado no Credit Bureau" type="String" format="">B370_BAIRRO</register>
+		<register description="CEP do endereço cadastrado no Credit Bureau" type="Integer" format="">B370_CEP</register>
+		<register description="Cidade do endereço cadastrado no Credit Bureau" type="String" format="">B370_CIDADE</register>
+		<register description="UF do endereço cadastrado no Credit Bureau" type="String" format="">B370_UF</register>
+		<register description="Nome do CPF" type="String" format="">B370_NOME</register>
+   </saida>
+   <saida id="B373" counter="" >
+		<register description="Nome do Correntista" type="String" format="">B373_NOMECORRENT</register>
+		<register description="Data de Abertura da Conta Corrente" type="Date" format="yyyyMMdd">B373_DTABERTURA</register>
+		<register description="Mensagem da Situação da Conta Corrente" type="String" format="">B373_MENSAGEM</register>
+		<register description="Banco" type="Integer" format="">B373_BCO</register>
+		<register description="Agência" type="Integer" format="">B373_AGENCIA</register>
+		<register description="Conta Corrente" type="Integer" format="">B373_CTACORRENTE</register>
+		<register description="Cheque Inicial" type="Integer" format="">B373_CHINICIAL</register>
+		<register description="Cheque Final" type="Integer" format="">B373_CHFINAL</register>
+		<register description="Motivo da Restrição do Cheque" type="String" format="">B373_MOTIVO</register>
+   </saida>
+</root>
+

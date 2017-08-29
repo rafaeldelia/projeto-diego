@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<serasapf>
+	<field>
+		<!-- header Credit Bureau -->
+		<name>B49C</name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+		<!-- Filler -->
+		<name> </name>
+		<size>6</size>
+		<type>S</type>
+	</field>
+	<field>
+		<!-- NUM_DOC=CPF; está neste XML ilustrando, pois o mesmo é tratado numa -->
+		<!-- tag de entrada, serve como referencia pra substituicao do real CPF -->
+		<name>cpf</name>
+		<size>15</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- Tipo Pessoa F=pessoa fisica; J=pessoa juridica -->
+		<name>F</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+		<!-- Base de consulta -->
+		<name>C</name>
+		<size>6</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- Modalidade -->
+		<name>FI</name>
+		<size>2</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- valor da consulta -->
+		<name>8888888</name>
+		<size>7</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- Centro de custo -->
+		<name> </name>
+		<size>12</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- Codificado (S/N) -->
+		<name>N</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- quantidade de registros por transmissao de dados -->
+		<name>99</name>
+		<size>2</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- Deseja dialogo de comunicacao (S/N) -->
+		<name>S</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- Funcao: INI,CON,ENC,ERR,TMD,FIM -->
+		<name>INI</name>
+		<size>3</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- Tipo de consulta -->
+		<name>A</name>
+		<size>1</size>>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- atualiza dados enviados (S/N) -->
+		<name>N</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- Filler (2) -->
+		<name> </name>
+		<size>42</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- quantidade de cheques sequenciais -->
+		<name>00</name>
+		<size>2</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- endereço + telefone -->
+		<name>N</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- filler (3) -->
+		<name> </name>
+		<size>8</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- conta corrente -->
+		<name>0000000000</name>
+		<size>10</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- digito da conta corrente -->
+		<name>0</name>
+		<size>1</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- agencia -->
+		<name>0000</name>
+		<size>4</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- filler (4) -->
+		<name> </name>
+		<size>61</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- quantidade de compromisso encontrados -->
+		<name> </name> 
+		<size>2</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- tem anotacoes negativas (S/N/B) -->
+		<name> </name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- anotacoes de cheques (S/N/B) -->
+		<name> </name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- data da consulta -->
+		<name> </name>
+		<size>8</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- hora da consulta -->
+		<name> </name>
+		<size>6</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- total de registros -->
+		<name> </name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- quantidade de registros enviados por transmissao -->
+		<name> </name>
+		<size>4</size>
+		<type>N</type>
+	</field>
+	<field>
+	<!-- numero de controle de atualizacao das tabelas -->
+		<name> </name>
+		<size>4</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- filler (5) -->
+		<name> </name>
+		<size>176</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- acessou recheque online (S/N) -->
+		<name>N</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- tem ocorrencia de Recheque ultimo ano (S/N) -->
+		<name>N</name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+	<field>
+	<!-- filler (6) -->
+		<name> </name>
+		<size>1</size>
+		<type>S</type>
+	</field>
+</serasapf>
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="build-beta" name="WebApp">
+	
+    <target description="Configura os parametros do script ant" name="init">
+        <property file="build.properties"/>
+        <property name="file.properties" value="build.properties"/>
+
+        <delete dir="${dir-deploy}"/>
+        <delete>
+            <fileset dir="./">
+                <include name="*.war"/>
+                <include name="*.ear"/>
+                <include name="*.jar"/>
+            </fileset>
+        </delete>
+
+        <tstamp>
+        	<format pattern="yyyyMMddhhmmss" property="build.time"/>
+        </tstamp>
+
+        <property name="dir-build" value="${dir-deploy}/classes"/>
+        
+        <mkdir dir="${dir-deploy}"/>
+        <mkdir dir="${dir-build}"/>
+    	
+        <copy overwrite="true" todir="${dir-build}/resources">
+            <fileset dir="${dir-resources}"></fileset>
+        </copy>
+    	    	
+        <patternset id="deploy-contents">
+            <include name="**/*"/>
+            <exclude name="**/*.java"/>
+            <exclude name="**/*.class"/>
+            <exclude name="**/CVS"/>
+        </patternset>
+
+        <copy overwrite="true" todir="${dir-build}">
+            <fileset dir="${dir-src}">
+                <patternset refid="deploy-contents"/>
+            </fileset>
+        </copy>
+
+        <property name="build.sysclasspath" value="first"/>
+        <javac debug="true" deprecation="false" destdir="${dir-build}" srcdir="${dir-src}">
+            <classpath>
+                <fileset dir="./lib">
+                    <include name="**/*.jar"/>
+                    <include name="**/*.zip"/>
+                </fileset>
+                <pathelement location="${dir-src}"/>
+            </classpath>
+            <exclude name="**/AbstractTestCase.java" />
+            <exclude name="**/AppTest.java" />
+            <exclude name="**/NaughtyTest.java" />
+            <exclude name="**/WndAppTest.java" />
+        </javac>
+    </target>
+	
+	<target description="Gera o arquivo jar" name="build-jar">
+        <jar destfile="./${appname}-${vcs-label}.jar" basedir="${dir-build}" includes="**/*.class,**/*.enc,resources/**/*.*">
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}"/>
+				<attribute name="Class-Path" value="${class-path}"/>
+				<attribute name="Implementation-Plugin" value="${pluginname}"/>
+				<attribute name="Implementation-Layout" value="${layoutpath}"/>
+				<attribute name="Implementation-Description" value="${description}"/>
+				<attribute name="Implementation-Datadir" value="${datadir}"/>
+				<attribute name="Implementation-FileList" value="${filelist}"/>
+				<section name="common">
+					<attribute name="Built-By" value="${username}"/>
+					<attribute name="Specification-Title" value="${appname}"/>
+					<attribute name="Specification-Version" value="${vcs-label}"/>
+					<attribute name="Specification-Vendor" value="${organization}"/>
+					<attribute name="Implementation-Title" value="${appname}"/>
+					<attribute name="Implementation-Version" value="${vcs-label}"/>
+					<attribute name="Implementation-Vendor" value="${group}"/>
+					<attribute name="primarykey" value="${primarykey}"/>
+					<attribute name="pkdescription" value="${pkdescription}"/>
+				</section>
+			</manifest>
+        </jar>	
+	</target>
+	
+	<target depends="init" description="Gera versao do aplicativo para testes" name="build-beta">
+        <property name="version" value="${version-prefix}_${version-compiler}_${version-suite}_Beta"/>
+		<property name="vcs-label" value="${version}_${build.time}"/>
+		<antcall target="build-jar"/>
+        <delete dir="${dir-deploy}"/>
+        <delete dir="${dir-build}"/>
+    </target>
+	
+    <target depends="init" description="Gera pacote de release para a aplicacao" name="release-patch">
+        <!-- Cria o empacotamento -->
+        <property name="version" value="${version-prefix}_${version-compiler}_${version-suite}_${version-release}"/>
+        <input message="Informe o numero do build a ser gerado => " addproperty="build-number" />
+		<property name="vcs-label" value="${version}_${build-number}"/> 
+		<cvs>
+			<commandline>
+				<argument value="tag"/>
+			    <argument value="${vcs-label}"/>
+			</commandline>
+		</cvs>
+		<antcall target="build-jar"/>    	
+        <delete dir="${dir-deploy}"/>
+        <delete dir="${dir-build}"/>
+    </target>
+	
+</project>
